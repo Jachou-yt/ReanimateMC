@@ -1,0 +1,4 @@
+name: ReanimateMC
+version: '1.0'
+main: fr.jachou.reanimatemc.ReanimateMC
+description: ReanimateMC plugin for Minecraft
