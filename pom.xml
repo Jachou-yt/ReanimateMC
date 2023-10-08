@@ -6,7 +6,7 @@
 
     <groupId>fr.jachou</groupId>
     <artifactId>ReanimateMC</artifactId>
-    <version>1.20.1-alpha-1.0.0</version>
+    <version>1.20.1-alpha-1.0.1</version>
     <packaging>jar</packaging>
 
     <name>ReanimateMC</name>
@@ -23,8 +23,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
+                    <source>11</source>
+                    <target>11</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -69,6 +69,11 @@
             <artifactId>spigot-api</artifactId>
             <version>1.20.2-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.bstats</groupId>
+            <artifactId>bstats-bukkit</artifactId>
+            <version>3.0.0</version>
         </dependency>
     </dependencies>
 </project>

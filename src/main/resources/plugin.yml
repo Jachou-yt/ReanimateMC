@@ -1,4 +1,9 @@
 name: ReanimateMC
-version: '1.0'
+version: 'alpha-1.0.1'
 main: fr.jachou.reanimatemc.ReanimateMC
 description: ReanimateMC plugin for Minecraft
+commands:
+  reanimate:
+    description: Reanimate a dead player
+    usage: /<command> <player>
+    permission: reanimatemc.reanimate

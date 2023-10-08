@@ -7,6 +7,7 @@ LICENSE END
 
 package fr.jachou.reanimatemc;
 
+import fr.jachou.reanimatemc.commands.ReanimateCommand;
 import fr.jachou.reanimatemc.events.PlayerEvents;
 import fr.jachou.reanimatemc.utils.KOPlayers;
 import org.bukkit.Bukkit;
@@ -14,11 +15,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bstats.bukkit.Metrics;
+import org.bukkit.plugin.java.JavaPlugin;
 
 public final class ReanimateMC extends JavaPlugin {
 
     private static ReanimateMC instance;
-    private static final String PREFIX = "§7[§cReanimateMC§7] §r";
+    public static final String PREFIX = "§7[§cReanimateMC§7] §r";
 
 
     @Override
@@ -26,21 +29,24 @@ public final class ReanimateMC extends JavaPlugin {
         // Plugin startup logic
         instance = this;
 
-        registerEvents(this);
+        // bStats
+        int pluginId = 20003;
+        Metrics metrics = new Metrics(this, pluginId);
 
-        new BukkitRunnable() {
+
+        registerEvents(this);
+        registerCommands(this);
+
+        registerRunnable(new BukkitRunnable() {
             @Override
             public void run() {
-                // Vérifiez chaque joueur en jeu
                 for (Player player : Bukkit.getOnlinePlayers()) {
-                    // Vérifiez si le joueur a un cœur ou moins (20 = plein cœur)
                     if (player.getHealth() <= 3 && !player.hasMetadata("frozen")) {
-                        // Faites quelque chose ici, par exemple envoyer un message au joueur :
                         KOPlayers.koPlayer(player);
                     }
                 }
             }
-        }.runTaskTimer(this, 0L, 20L);
+        });
     }
 
 
@@ -54,6 +60,15 @@ public final class ReanimateMC extends JavaPlugin {
     private void registerEvents(Plugin plugin) {
         getServer().getPluginManager().registerEvents(new PlayerEvents(), plugin);
     }
+
+    private void registerCommands(Plugin plugin) {
+        getCommand("reanimate").setExecutor(new ReanimateCommand());
+    }
+
+    private void registerRunnable(BukkitRunnable runnable) {
+        runnable.runTaskTimer(this, 0L, 20L);
+    }
+
 
     public static ReanimateMC getInstance() {
         return instance;

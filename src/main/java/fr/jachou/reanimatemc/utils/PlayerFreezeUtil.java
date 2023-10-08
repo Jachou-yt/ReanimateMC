@@ -9,19 +9,13 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class PlayerFreezeUtil {
     public static void freezePlayer(Player player) {
-        // Vous pouvez utiliser des métadonnées ou une autre méthode pour marquer le joueur comme gelé
-        // Par exemple, en ajoutant une métadonnée "frozen" comme nous l'avons vu précédemment
+        player.setWalkSpeed(0);
+        player.setFlySpeed(0);
 
-        // Ensuite, désactivez la capacité de déplacement du joueur
-        player.setWalkSpeed(0); // Le joueur ne pourra pas marcher
-        player.setFlySpeed(0); // Le joueur ne pourra pas voler (si applicable)
-
-        // Désactivez d'autres actions potentielles, comme les clics de souris
 
         player.setAllowFlight(false);
         player.setInvulnerable(true);
 
-        // Désactivez les clics de souris
         player.setCanPickupItems(false);
         player.setCollidable(false);
         player.setGliding(false);
@@ -32,21 +26,17 @@ public class PlayerFreezeUtil {
 
         player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 99999999, 1));
 
-        // Vous pouvez également afficher un message au joueur pour indiquer qu'il est gelé
         player.sendMessage("You can't move... Wait for someone to revive you !");
 
         player.setMetadata("frozen", new FixedMetadataValue(ReanimateMC.getInstance(), true));
     }
 
     public static void unfreezePlayer(Player player) {
-        // Réactivez la capacité de déplacement du joueur
-        player.setWalkSpeed(0.2f); // Réglez la vitesse de marche par défaut (0.2f)
+        player.setWalkSpeed(0.2f);
 
-        // Réactivez d'autres actions potentielles, comme les clics de souris
         player.setAllowFlight(true);
         player.setInvulnerable(false);
 
-        // Réactivez les clics de souris
         player.setCanPickupItems(true);
         player.setCollidable(true);
         player.setGliding(true);
@@ -57,7 +47,6 @@ public class PlayerFreezeUtil {
 
         player.removePotionEffect(PotionEffectType.BLINDNESS);
 
-        // Affichez un message au joueur pour indiquer qu'il a été réanimé
         player.sendMessage("You have been revived !");
 
         new BukkitRunnable() {

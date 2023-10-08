@@ -31,7 +31,10 @@ Indisponible pour le moment.
 Pour réanimer un joueur, il suffit de faire un clic droit sur lui. Le joueur sera réanimé au bout de 5 secondes.
 ## Commandes
 
-Indisponible pour le moment.
+- /reanimate
+    - Description : Permet de réanimer un joueur.
+    - Utilisation : `/reanimate <joueur>`
+    - Permission : `reanimatemc.reanimate`
 
 ## Permissions
 
