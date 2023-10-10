@@ -19,8 +19,7 @@ import java.util.Map;
 
 public class PlayerEvents implements Listener {
 
-
-    private Map<Player, BukkitTask> reanimateTaks = new HashMap<>();
+    private final Map<Player, BukkitTask> reanimateTaks = new HashMap<>();
     private static PlayerEvents instance;
 
 
@@ -94,12 +93,14 @@ public class PlayerEvents implements Listener {
     }
 
     private boolean canReanimate(Player clicker, Player target) {
-        // Mettez en œuvre votre propre logique pour déterminer si le joueur peut réanimer ou non
-        // Par exemple, vérifiez si le joueur a un objet spécial pour réanimer, s'il est dans une certaine équipe, etc.
-        return true; // À titre d'exemple, nous supposons que le joueur peut réanimer
+        return true;
     }
 
     public static PlayerEvents getInstance() {
         return instance;
+    }
+
+    public Map<Player, BukkitTask> getReanimateTaks() {
+        return reanimateTaks;
     }
 }

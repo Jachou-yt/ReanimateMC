@@ -18,6 +18,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.Objects;
+
 public final class ReanimateMC extends JavaPlugin {
 
     private static ReanimateMC instance;
@@ -62,7 +64,7 @@ public final class ReanimateMC extends JavaPlugin {
     }
 
     private void registerCommands(Plugin plugin) {
-        getCommand("reanimate").setExecutor(new ReanimateCommand());
+        Objects.requireNonNull(getCommand("reanimate")).setExecutor(new ReanimateCommand());
     }
 
     private void registerRunnable(BukkitRunnable runnable) {
