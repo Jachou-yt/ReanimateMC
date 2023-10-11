@@ -16,7 +16,6 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bstats.bukkit.Metrics;
-import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Objects;
 
@@ -31,13 +30,13 @@ public final class ReanimateMC extends JavaPlugin {
         // Plugin startup logic
         instance = this;
 
-        // bStats
-        int pluginId = 20003;
-        Metrics metrics = new Metrics(this, pluginId);
-
 
         registerEvents(this);
         registerCommands(this);
+
+        // bStats
+        int pluginId = 20034;
+        Metrics metrics = new Metrics(this, pluginId);
 
         registerRunnable(new BukkitRunnable() {
             @Override
@@ -49,6 +48,7 @@ public final class ReanimateMC extends JavaPlugin {
                 }
             }
         });
+
     }
 
 
