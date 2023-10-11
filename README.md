@@ -1,6 +1,6 @@
 # ReanimateMC
 
-![Version](https://img.shields.io/badge/version-Alpha_1.0.0-brightgreen.svg)
+![Version](https://img.shields.io/badge/version-Alpha_1.0.2-brightgreen.svg)
 ![Minecraft](https://img.shields.io/badge/Minecraft-1.20.1-blue.svg)
 ![Spigot](https://img.shields.io/badge/Spigot-1.20.1-orange.svg)
 
