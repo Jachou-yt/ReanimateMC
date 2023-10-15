@@ -1,6 +1,7 @@
 package fr.jachou.reanimatemc.update;
 
 import fr.jachou.reanimatemc.ReanimateMC;
+import org.bukkit.Bukkit;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -36,12 +37,13 @@ public class VersionChecker {
         }
     }
 
-    public static boolean isUpToDate() {
+    public static boolean isUpToDate(String thisVersion) {
         String version = checkVersion();
         if (version == null) {
-            return true;
+            Bukkit.getConsoleSender().sendMessage(ReanimateMC.PREFIX + "§cError while checking update.");
+            return false;
         }
-        return version.equals(ReanimateMC.getInstance().getDescription().getVersion());
+        return !version.equals(thisVersion);
     }
 
     public static String getLatestVersion() {

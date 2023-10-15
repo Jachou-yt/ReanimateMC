@@ -32,10 +32,12 @@ public final class ReanimateMC extends JavaPlugin {
         // Plugin startup logic
         instance = this;
 
-        if (VersionChecker.isUpToDate()) {
+        if (VersionChecker.isUpToDate("alpha-1.0.2")) {
             Bukkit.getConsoleSender().sendMessage(PREFIX + "§aPlugin is up to date.");
             Bukkit.getConsoleSender().sendMessage(PREFIX + "§aVersion: " + VersionChecker.getLatestVersion());
             Bukkit.getConsoleSender().sendMessage(PREFIX + "You can download the latest version at https://modrinth.com/plugin/reanimatemc");
+        } else {
+            Bukkit.getConsoleSender().sendMessage(PREFIX + "§c ReanimateMC running on the latest version.");
         }
 
 
