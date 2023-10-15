@@ -26,7 +26,7 @@ public class PlayerFreezeUtil {
 
         player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 99999999, 1));
 
-        player.sendMessage("You can't move... Wait for someone to revive you !");
+        player.sendMessage(ReanimateMC.PREFIX + "You can't move... Wait for someone to revive you !");
 
         player.setMetadata("frozen", new FixedMetadataValue(ReanimateMC.getInstance(), true));
     }
@@ -47,7 +47,7 @@ public class PlayerFreezeUtil {
 
         player.removePotionEffect(PotionEffectType.BLINDNESS);
 
-        player.sendMessage("You have been revived !");
+        player.sendMessage(ReanimateMC.PREFIX + "You have been revived !");
 
         new BukkitRunnable() {
             @Override

@@ -7,15 +7,16 @@ LICENSE END
 
 package fr.jachou.reanimatemc;
 
+import fr.jachou.reanimatemc.commands.KOCommand;
 import fr.jachou.reanimatemc.commands.ReanimateCommand;
 import fr.jachou.reanimatemc.events.PlayerEvents;
 import fr.jachou.reanimatemc.utils.KOPlayers;
+import fr.jachou.reanimatemc.utils.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bstats.bukkit.Metrics;
 
 import java.util.Objects;
 
@@ -32,7 +33,8 @@ public final class ReanimateMC extends JavaPlugin {
 
 
         registerEvents(this);
-        registerCommands(this);
+        registerCommands();
+        registerTabCompleter();
 
         // bStats
         int pluginId = 20034;
@@ -63,8 +65,14 @@ public final class ReanimateMC extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PlayerEvents(), plugin);
     }
 
-    private void registerCommands(Plugin plugin) {
+    private void registerCommands() {
         Objects.requireNonNull(getCommand("reanimate")).setExecutor(new ReanimateCommand());
+        Objects.requireNonNull(getCommand("ko")).setExecutor(new KOCommand());
+    }
+
+    private void registerTabCompleter() {
+        Objects.requireNonNull(getCommand("reanimate")).setTabCompleter(new ReanimateCommand());
+        Objects.requireNonNull(getCommand("ko")).setTabCompleter(new KOCommand());
     }
 
     private void registerRunnable(BukkitRunnable runnable) {

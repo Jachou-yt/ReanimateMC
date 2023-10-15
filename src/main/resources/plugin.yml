@@ -1,10 +1,13 @@
 name: ReanimateMC
-version: 'alpha-1.0.1'
+version: 'alpha-1.0.3'
 main: fr.jachou.reanimatemc.ReanimateMC
 description: ReanimateMC plugin for Minecraft
-depend: [bStats]
 commands:
   reanimate:
     description: Reanimate a dead player
     usage: /<command> <player>
     permission: reanimatemc.reanimate
+  ko:
+    description: Knockout a player
+    usage: /ko <player>
+    permission: reanimatemc.ko

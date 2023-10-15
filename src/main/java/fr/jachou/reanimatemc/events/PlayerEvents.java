@@ -54,30 +54,31 @@ public class PlayerEvents implements Listener {
             Location clickerLocation = clicker.getLocation();
             Location targetLocation = target.getLocation();
 
-            // Vérifiez si le joueur est suffisamment proche du joueur KO
             if (clickerLocation.distance(targetLocation) <= 5) {
-                clicker.sendMessage(target.getName() + " is being reanimated...");
-                target.sendMessage("You are being reanimated by " + clicker.getName() + "...");
-                // Créez une tâche planifiée pour la réanimation après 5 secondes
+                if (!target.hasMetadata("inReanimation")) {
+                    clicker.sendMessage(ReanimateMC.PREFIX + target.getName() + " is being reanimated...");
+                    target.sendMessage(ReanimateMC.PREFIX + "You are being reanimated by " + clicker.getName() + "...");
+                    target.setMetadata("inReanimation", new FixedMetadataValue(ReanimateMC.getInstance(), true));
+                } else {
+                    clicker.sendMessage(ReanimateMC.PREFIX + "This player is already being reanimated !");
+                    return;
+                }
                 BukkitTask reanimateTask = new BukkitRunnable() {
                     @Override
                     public void run() {
                         if (PlayerFreezeUtil.playerIsFreezed(target)) {
-                            // Réanimez le joueur KO
                             target.setHealth(1.0);
-                            target.setMetadata("reanimated", new FixedMetadataValue(ReanimateMC.getInstance(), true));
+                            target.removeMetadata("inReanimation", ReanimateMC.getInstance());
 
-                            reanimateTaks.remove(clicker); // Retirez la tâche de la carte
+                            reanimateTaks.remove(clicker);
 
                             PlayerFreezeUtil.unfreezePlayer(target);
 
-                            target.sendMessage("You have been reanimated by " + clicker.getName() + " !");
-                            clicker.sendMessage("You have reanimated " + target.getName() + " !");
+                            clicker.sendMessage(ReanimateMC.PREFIX + "You have reanimated " + target.getName() + " !");
                         }
                     }
-                }.runTaskLater(ReanimateMC.getInstance(), 100); // Exécutez la tâche après 5 secondes (100 ticks)
+                }.runTaskLater(ReanimateMC.getInstance(), 100);
 
-                // Enregistrez la tâche dans la carte
                 reanimateTaks.put(clicker, reanimateTask);
             }
         }
@@ -88,7 +89,7 @@ public class PlayerEvents implements Listener {
         Player player = event.getPlayer();
         if (PlayerFreezeUtil.playerIsFreezed(player)) {
             event.setCancelled(true);
-            player.sendMessage("You can't move... Wait for someone to revive you !");
+            player.sendMessage(ReanimateMC.PREFIX + "You can't move... Wait for someone to revive you !");
         }
     }
 
