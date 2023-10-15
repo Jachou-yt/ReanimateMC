@@ -29,10 +29,16 @@ Currently unavailable.
 To revive a player, simply right-click on them. The player will be revived after 5 seconds.
 ## Commands
 
+*Exemplary command:*
+
 - /reanimate
     - Description: Allows reviving a player.
     - Usage: `/reanimate <player>`
     - Permission: `reanimatemc.reanimate`
+- /ko
+    - Description: Allows knocking out a player.
+    - Usage: `/ko <player>`
+    - Permission: `reanimatemc.ko`
 
 ## Permissions
 
