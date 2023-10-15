@@ -10,6 +10,7 @@ package fr.jachou.reanimatemc;
 import fr.jachou.reanimatemc.commands.KOCommand;
 import fr.jachou.reanimatemc.commands.ReanimateCommand;
 import fr.jachou.reanimatemc.events.PlayerEvents;
+import fr.jachou.reanimatemc.update.VersionChecker;
 import fr.jachou.reanimatemc.utils.KOPlayers;
 import fr.jachou.reanimatemc.utils.Metrics;
 import org.bukkit.Bukkit;
@@ -30,6 +31,12 @@ public final class ReanimateMC extends JavaPlugin {
     public void onEnable() {
         // Plugin startup logic
         instance = this;
+
+        if (VersionChecker.isUpToDate()) {
+            Bukkit.getConsoleSender().sendMessage(PREFIX + "§aPlugin is up to date.");
+            Bukkit.getConsoleSender().sendMessage(PREFIX + "§aVersion: " + VersionChecker.getLatestVersion());
+            Bukkit.getConsoleSender().sendMessage(PREFIX + "You can download the latest version at https://modrinth.com/plugin/reanimatemc");
+        }
 
 
         registerEvents(this);
