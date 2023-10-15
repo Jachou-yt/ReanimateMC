@@ -1,60 +1,58 @@
 # ReanimateMC
 
-![Version](https://img.shields.io/badge/version-Alpha_1.0.0-brightgreen.svg)
+![Version](https://img.shields.io/badge/version-Alpha_1.0.2-red.svg)
 ![Minecraft](https://img.shields.io/badge/Minecraft-1.20.1-blue.svg)
 ![Spigot](https://img.shields.io/badge/Spigot-1.20.1-orange.svg)
 
-Description brève de votre plugin.
-
-## Table des matières
+## Table of Contents
 
 - [Installation](#installation)
 - [Configuration](#configuration)
-- [Utilisation](#utilisation)
-- [Commandes](#commandes)
+- [Usage](#usage)
+- [Commands](#commands)
 - [Permissions](#permissions)
 - [Contribution](#contribution)
-- [Signaler un bug](#signaler-un-bug)
-- [Licence](#licence)
+- [Report a Bug](#report-a-bug)
+- [License](#license)
 
 ## Installation
 
-1. Téléchargez le fichier JAR de la dernière version depuis [ici](lien_vers_votre_plugin.jar).
-2. Placez le fichier JAR dans le dossier `plugins` de votre serveur Minecraft.
-3. Redémarrez ou rechargez votre serveur Minecraft.
+1. Download the latest version JAR file from [here](link_to_your_plugin.jar).
+2. Place the JAR file in the `plugins` folder of your Minecraft server.
+3. Restart or reload your Minecraft server.
 
 ## Configuration
 
-Indisponible pour le moment.
-## Utilisation
+Currently unavailable.
+## Usage
 
-Pour réanimer un joueur, il suffit de faire un clic droit sur lui. Le joueur sera réanimé au bout de 5 secondes.
-## Commandes
+To revive a player, simply right-click on them. The player will be revived after 5 seconds.
+## Commands
 
 - /reanimate
-    - Description : Permet de réanimer un joueur.
-    - Utilisation : `/reanimate <joueur>`
-    - Permission : `reanimatemc.reanimate`
+    - Description: Allows reviving a player.
+    - Usage: `/reanimate <player>`
+    - Permission: `reanimatemc.reanimate`
 
 ## Permissions
 
-Indisponible pour le moment.
+Currently unavailable.
 
 ## Contribution
 
-La contribution est la bienvenue. Pour contribuer, veuillez suivre les étapes suivantes :
+Contributions are welcome. To contribute, please follow these steps:
 
-1. Fork le projet.
-2. Créez une nouvelle branche.
-3. Faites vos modifications.
-4. Créez une pull request.
-5. Attendez que votre pull request soit acceptée.
-6. Votre contribution est ajoutée au projet !
+1. Fork the project.
+2. Create a new branch.
+3. Make your changes.
+4. Create a pull request.
+5. Wait for your pull request to be accepted.
+6. Your contribution is added to the project!
 
-## Signaler un bug
+## Report a Bug
 
-Si vous rencontrez des problèmes avec le plugin, veuillez les signaler en créant un problème dans la section des problèmes (issues) du référentiel.
+If you encounter issues with the plugin, please report them by creating an issue in the issues section of the repository.
 
-## Licence
+## License
 
-Ce projet est sous licence MIT. Voir le fichier [LICENSE](LICENSE) pour plus d'informations.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more information.
