@@ -13,7 +13,6 @@ public class PlayerFreezeUtil {
         player.setFlySpeed(0);
 
 
-        player.setAllowFlight(false);
         player.setInvulnerable(true);
 
         player.setCanPickupItems(false);
@@ -36,6 +35,8 @@ public class PlayerFreezeUtil {
 
         player.setAllowFlight(true);
         player.setInvulnerable(false);
+
+        player.setFlySpeed(0.1f);
 
         player.setCanPickupItems(true);
         player.setCollidable(true);
