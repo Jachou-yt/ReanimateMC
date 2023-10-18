@@ -1,5 +1,5 @@
 name: ReanimateMC
-version: 'alpha-1.0.2'
+version: 'alpha-1.0.4'
 main: fr.jachou.reanimatemc.ReanimateMC
 description: ReanimateMC plugin for Minecraft
 commands:
