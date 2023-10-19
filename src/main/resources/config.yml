@@ -1,0 +1,13 @@
+############################################
+#
+# ReanimateMC Configuration
+# Version 1.1.0
+#
+############################################
+checkUpdate: true
+
+#
+# Warning: Do not change the following values unless you know what you are doing!
+#
+
+active: true

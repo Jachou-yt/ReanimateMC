@@ -9,6 +9,7 @@ package fr.jachou.reanimatemc;
 
 import fr.jachou.reanimatemc.commands.KOCommand;
 import fr.jachou.reanimatemc.commands.ReanimateCommand;
+import fr.jachou.reanimatemc.commands.ReanimateMCCommand;
 import fr.jachou.reanimatemc.events.PlayerEvents;
 import fr.jachou.reanimatemc.update.VersionChecker;
 import fr.jachou.reanimatemc.utils.KOPlayers;
@@ -32,12 +33,16 @@ public final class ReanimateMC extends JavaPlugin {
         // Plugin startup logic
         instance = this;
 
-        if (VersionChecker.isUpToDate("alpha-1.0.2")) {
-            Bukkit.getConsoleSender().sendMessage(PREFIX + "§aPlugin is up to date.");
-            Bukkit.getConsoleSender().sendMessage(PREFIX + "§aVersion: " + VersionChecker.getLatestVersion());
-            Bukkit.getConsoleSender().sendMessage(PREFIX + "You can download the latest version at https://modrinth.com/plugin/reanimatemc");
-        } else {
-            Bukkit.getConsoleSender().sendMessage(PREFIX + "§c ReanimateMC running on the latest version.");
+        registerConfigurationFile();
+
+        if (getConfig().getBoolean("checkUpdate")) {
+            if (VersionChecker.isUpToDate("alpha-1.1.0")) {
+                Bukkit.getConsoleSender().sendMessage(PREFIX + "§aPlugin is up to date.");
+                Bukkit.getConsoleSender().sendMessage(PREFIX + "§aVersion: " + VersionChecker.getLatestVersion());
+                Bukkit.getConsoleSender().sendMessage(PREFIX + "You can download the latest version at https://modrinth.com/plugin/reanimatemc");
+            } else {
+                Bukkit.getConsoleSender().sendMessage(PREFIX + "§cReanimateMC running on the latest version.");
+            }
         }
 
 
@@ -53,7 +58,7 @@ public final class ReanimateMC extends JavaPlugin {
             @Override
             public void run() {
                 for (Player player : Bukkit.getOnlinePlayers()) {
-                    if (player.getHealth() <= 3 && !player.hasMetadata("frozen")) {
+                    if (player.getHealth() <= 3 && !player.hasMetadata("frozen") && getConfig().getBoolean("active")) {
                         KOPlayers.koPlayer(player);
                     }
                 }
@@ -67,21 +72,28 @@ public final class ReanimateMC extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
-
+        saveConfig();
     }
 
     private void registerEvents(Plugin plugin) {
         getServer().getPluginManager().registerEvents(new PlayerEvents(), plugin);
     }
 
+    private void registerConfigurationFile() {
+        getConfig().options().copyDefaults();
+        saveDefaultConfig();
+    }
+
     private void registerCommands() {
         Objects.requireNonNull(getCommand("reanimate")).setExecutor(new ReanimateCommand());
         Objects.requireNonNull(getCommand("ko")).setExecutor(new KOCommand());
+        Objects.requireNonNull(getCommand("reanimatemc")).setExecutor(new ReanimateMCCommand());
     }
 
     private void registerTabCompleter() {
         Objects.requireNonNull(getCommand("reanimate")).setTabCompleter(new ReanimateCommand());
         Objects.requireNonNull(getCommand("ko")).setTabCompleter(new KOCommand());
+        Objects.requireNonNull(getCommand("reanimatemc")).setTabCompleter(new ReanimateMCCommand());
     }
 
     private void registerRunnable(BukkitRunnable runnable) {
