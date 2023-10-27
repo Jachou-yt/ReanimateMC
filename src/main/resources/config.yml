@@ -5,6 +5,7 @@
 #
 ############################################
 checkUpdate: true
+messageUpdate: true
 
 #
 # Warning: Do not change the following values unless you know what you are doing!

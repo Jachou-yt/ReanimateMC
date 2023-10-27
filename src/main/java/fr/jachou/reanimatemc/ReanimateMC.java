@@ -15,6 +15,7 @@ import fr.jachou.reanimatemc.update.VersionChecker;
 import fr.jachou.reanimatemc.utils.KOPlayers;
 import fr.jachou.reanimatemc.utils.Metrics;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -26,6 +27,7 @@ public final class ReanimateMC extends JavaPlugin {
 
     private static ReanimateMC instance;
     public static final String PREFIX = "§7[§cReanimateMC§7] §r";
+    public static final String VERSION = "alpha-1.1.0";
 
 
     @Override
@@ -36,12 +38,12 @@ public final class ReanimateMC extends JavaPlugin {
         registerConfigurationFile();
 
         if (getConfig().getBoolean("checkUpdate")) {
-            if (VersionChecker.isUpToDate("alpha-1.1.0")) {
+            if (VersionChecker.isUpToDate(VERSION)) {
                 Bukkit.getConsoleSender().sendMessage(PREFIX + "§aPlugin is up to date.");
-                Bukkit.getConsoleSender().sendMessage(PREFIX + "§aVersion: " + VersionChecker.getLatestVersion());
+                Bukkit.getConsoleSender().sendMessage(PREFIX + "§aLatest version: " + VersionChecker.getLatestVersion());
                 Bukkit.getConsoleSender().sendMessage(PREFIX + "You can download the latest version at https://modrinth.com/plugin/reanimatemc");
             } else {
-                Bukkit.getConsoleSender().sendMessage(PREFIX + "§cReanimateMC running on the latest version.");
+                Bukkit.getConsoleSender().sendMessage(PREFIX + ChatColor.GREEN + "ReanimateMC running on the latest version");
             }
         }
 

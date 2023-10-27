@@ -39,6 +39,10 @@ To revive a player, simply right-click on them. The player will be revived after
     - Description: Allows knocking out a player.
     - Usage: `/ko <player>`
     - Permission: `reanimatemc.ko`
+- /reanimatemc
+    - Description: Manage the plugin.
+    - Usage: `/reanimatemc <args>`
+    - Permission: `reanimatemc.reanimatemc`
 
 ## Permissions
 

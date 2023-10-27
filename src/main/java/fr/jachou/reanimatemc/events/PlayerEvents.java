@@ -1,7 +1,9 @@
 package fr.jachou.reanimatemc.events;
 
 import fr.jachou.reanimatemc.ReanimateMC;
+import fr.jachou.reanimatemc.update.VersionChecker;
 import fr.jachou.reanimatemc.utils.PlayerFreezeUtil;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -9,6 +11,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -22,16 +25,30 @@ public class PlayerEvents implements Listener {
     private final Map<Player, BukkitTask> reanimateTaks = new HashMap<>();
     private static PlayerEvents instance;
 
+    @EventHandler
+    public void onPlayerJoinEvent(PlayerJoinEvent e) {
+        Player player = e.getPlayer();
 
+        if (ReanimateMC.getInstance().getConfig().getBoolean("messageUpdate")) {
+            if (player.hasPermission("*") || player.isOp()) {
+                if (VersionChecker.isUpToDate(ReanimateMC.VERSION)) {
+                    player.sendMessage(ReanimateMC.PREFIX + "Plugin is up to date." + " Latest version: " + VersionChecker.getLatestVersion() + ". You can download the latest version at https://modrinth.com/plugin/reanimatemc");
+                    player.sendMessage(ReanimateMC.PREFIX + ChatColor.GRAY + "You can deactivate this message in the config.yml file.");
+                } else {
+                    player.sendMessage(ReanimateMC.PREFIX + ChatColor.GREEN + "ReanimateMC running on the latest version");
+                    player.sendMessage(ReanimateMC.PREFIX + ChatColor.GRAY + "You can deactivate this message in the config.yml file" + ChatColor.ITALIC +  " (messageUpdate).");
+                }
+            }
+        }
+    }
 
     @EventHandler
     public void onPlayerRightClickEvent(PlayerInteractEvent event) {
-        // L'événement est déclenché lorsque le joueur clique avec le bouton droit de la souris
 
         Player player = event.getPlayer();
 
         if (PlayerFreezeUtil.playerIsFreezed(player)) {
-            event.setCancelled(true); // Annule l'événement pour empêcher le joueur de cliquer sur des objets
+            event.setCancelled(true);
         }
     }
 
