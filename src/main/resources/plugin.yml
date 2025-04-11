@@ -1,17 +1,20 @@
 name: ReanimateMC
-version: 'alpha-1.1.0'
 main: fr.jachou.reanimatemc.ReanimateMC
-description: ReanimateMC plugin for Minecraft
+version: 1.0
 commands:
-  reanimate:
-    description: Reanimate a dead player
-    usage: /reanimate <player>
-    permission: reanimatemc.reanimate
-  ko:
-    description: Knockout a player
-    usage: /ko <player>
-    permission: reanimatemc.ko
   reanimatemc:
-    description: ReanimateMC plugin for Minecraft
-    usage: /reanimatemc
-    permission: reanimatemc.reanimatemc
+    description: Commande principale pour ReanimateMC
+    usage: /<command> <reload|revive|knockout|status>
+permissions:
+  reanimatemc.revive:
+    description: Permet de réanimer un joueur
+    default: true
+  reanimatemc.execute:
+    description: Permet d’achever un joueur
+    default: true
+  reanimatemc.bypass:
+    description: Ne passe pas en K.O, meurt directement
+    default: op
+  reanimatemc.admin:
+    description: Accès aux commandes d’administration
+    default: op

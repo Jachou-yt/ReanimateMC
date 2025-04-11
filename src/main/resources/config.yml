@@ -1,14 +1,25 @@
-############################################
-#
-# ReanimateMC Configuration
-# Version 1.1.0
-#
-############################################
-checkUpdate: true
-messageUpdate: true
+language: "en"
 
-#
-# Warning: Do not change the following values unless you know what you are doing!
-#
+reanimation:
+  required_item: "CARROT_GOLD"
+  require_special_item: true
+  duration_ticks: 100  # Durée de la réanimation en ticks (~5 secondes)
+  health_restored: 4   # Nombre de points de vie restaurés (4 = 2 cœurs)
+  cooldown: 60         # Cooldown avant de pouvoir réanimer à nouveau (en secondes)
 
-active: true
+knockout:
+  enabled: true
+  duration_seconds: 30
+  movement_disabled: true
+  use_particles: true
+  heartbeat_sound: true
+
+execution:
+  enabled: true
+  hold_duration_ticks: 40  # Durée de maintien du clic gauche (40 ticks = 2 secondes)
+  message_broadcast: true
+
+effects_on_revive:
+  nausea: 5
+  slowness: 10
+  resistance: 10
