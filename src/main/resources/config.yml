@@ -1,11 +1,12 @@
 language: "en"
 
 reanimation:
-  required_item: "CARROT_GOLD"
+  required_item: "GOLDEN_APPLE"
   require_special_item: true
-  duration_ticks: 100  # Durée de la réanimation en ticks (~5 secondes)
-  health_restored: 4   # Nombre de points de vie restaurés (4 = 2 cœurs)
-  cooldown: 60         # Cooldown avant de pouvoir réanimer à nouveau (en secondes)
+  duration_ticks: 100
+  health_restored: 4
+  cooldown: 60
+  revive_cooldown: 60
 
 knockout:
   enabled: true
@@ -16,10 +17,15 @@ knockout:
 
 execution:
   enabled: true
-  hold_duration_ticks: 40  # Durée de maintien du clic gauche (40 ticks = 2 secondes)
+  hold_duration_ticks: 40
   message_broadcast: true
 
 effects_on_revive:
   nausea: 5
   slowness: 10
   resistance: 10
+
+prone:
+  enabled: true
+  allow_crawl: true
+  crawl_slowness_level: 5

@@ -33,7 +33,6 @@ public class ReanimateMCCommand implements CommandExecutor, TabCompleter {
                 return true;
             }
             ReanimateMC.getInstance().reloadConfig();
-            // Recharger la langue après rechargement de la config
             ReanimateMC.lang.loadLanguage();
             sender.sendMessage(ChatColor.GREEN + ReanimateMC.lang.get("config_reloaded"));
         } else if (subCommand.equalsIgnoreCase("revive")) {
@@ -80,6 +79,44 @@ public class ReanimateMCCommand implements CommandExecutor, TabCompleter {
             }
             String status = koManager.isKO(target) ? ReanimateMC.lang.get("status_ko") : ReanimateMC.lang.get("status_normal");
             sender.sendMessage(ChatColor.AQUA + target.getName() + " : " + status);
+        } else if (subCommand.equalsIgnoreCase("crawl")) {
+            // Permet au joueur KO de basculer entre l'immobilisation totale et le mode crawl
+            if (!(sender instanceof Player)) {
+                sender.sendMessage("This command can only be executed by a player.");
+                return true;
+            }
+            Player player = (Player) sender;
+            if (!koManager.isKO(player)) {
+                player.sendMessage(ChatColor.RED + ReanimateMC.lang.get("not_in_ko"));
+                return true;
+            }
+            // Vérifier que l'option "prone.allow_crawl" est activée
+            if (!ReanimateMC.getInstance().getConfig().getBoolean("prone.allow_crawl", false)) {
+                player.sendMessage(ChatColor.RED + ReanimateMC.lang.get("crawl_not_allowed"));
+                return true;
+            }
+            koManager.toggleCrawl(player);
+        } else if (subCommand.equalsIgnoreCase("removeGlowingEffect")) {
+            // Permet de retirer l'effet de glow d'un joueur KO
+            if (args.length < 2) {
+                sender.sendMessage(ChatColor.YELLOW + ReanimateMC.lang.get("command_remove_glowing_usage"));
+                return true;
+            }
+            Player target = Bukkit.getPlayer(args[1]);
+            if (target == null) {
+                sender.sendMessage(ChatColor.RED + ReanimateMC.lang.get("player_not_found"));
+                return true;
+            }
+
+            /*if (target.isGlowing()) {
+                sender.sendMessage(ChatColor.RED + ReanimateMC.lang.get("player_not_glowing"));
+                return true;
+            }*/
+
+            target.setGlowing(false);
+            sender.sendMessage(ChatColor.GREEN + ReanimateMC.lang.get("glowing_effect_removed", "player", target.getName()));
+
+
         } else {
             sender.sendMessage(ChatColor.YELLOW + ReanimateMC.lang.get("command_unknown"));
         }
@@ -90,10 +127,10 @@ public class ReanimateMCCommand implements CommandExecutor, TabCompleter {
     public List<String> onTabComplete(CommandSender commandSender, Command command, String s, String[] strings) {
         // Tout les tab completions
         if (strings.length == 1) {
-            return List.of("reload", "revive", "knockout", "status");
+            return List.of("reload", "revive", "knockout", "status", "crawl", "removeGlowingEffect");
         } else if (strings.length == 2) {
             // Si le premier argument est "revive", "knockout" ou "status", on affiche les joueurs en ligne
-            if (strings[0].equalsIgnoreCase("revive") || strings[0].equalsIgnoreCase("knockout") || strings[0].equalsIgnoreCase("status")) {
+            if (strings[0].equalsIgnoreCase("revive") || strings[0].equalsIgnoreCase("knockout") || strings[0].equalsIgnoreCase("status") || strings[0].equalsIgnoreCase("removeGlowingEffect")) {
                 return Bukkit.getOnlinePlayers().stream()
                         .map(Player::getName)
                         .toList();

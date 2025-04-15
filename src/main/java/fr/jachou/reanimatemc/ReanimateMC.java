@@ -65,6 +65,12 @@ public final class ReanimateMC extends JavaPlugin {
     public void onDisable() {
         // Annulation de toutes les tâches programmées relatives aux joueurs en K.O.
         koManager.cancelAllTasks();
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            if (koManager.isKO(player)) {
+                koManager.revive(player);
+                player.sendMessage(ChatColor.RED + lang.get("plugin_disabled"));
+            }
+        }
         getLogger().info("ReanimateMC désactivé !");
     }
 

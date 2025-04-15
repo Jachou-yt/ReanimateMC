@@ -28,6 +28,7 @@ public class KOManager {
 
         KOData data = new KOData();
         data.setKo(true);
+        data.setCrawling(false); // Par défaut, non en mode crawl (immobilisé)
         // Programmation de la mort naturelle après un délai (en secondes)
         long durationSeconds = plugin.getConfig().getLong("knockout.duration_seconds", 30);
         int taskId = plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
@@ -40,15 +41,29 @@ public class KOManager {
         data.setTaskId(taskId);
         koPlayers.put(player.getUniqueId(), data);
 
-        // Appliquer les effets : immobilisation (SLOW) et aveuglement (BLINDNESS)
-        if (plugin.getConfig().getBoolean("knockout.movement_disabled", true)) {
-            player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, Integer.MAX_VALUE, 255, false, false));
+        // Application de la posture prone avec une option de ramper
+        if (plugin.getConfig().getBoolean("prone.enabled", false)) {
+            // Si l'option de crawl est activée, on applique par défaut un effet très fort pour ne pas permettre le déplacement
+            boolean allowCrawl = plugin.getConfig().getBoolean("prone.allow_crawl", false);
+            if (allowCrawl) {
+                // Par défaut, pas en mode crawl = immobilisé
+                player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, Integer.MAX_VALUE, 255, false, false));
+                player.setSwimming(true);
+            } else {
+                player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, Integer.MAX_VALUE, 255, false, false));
+            }
+            // Application de l'effet d'aveuglement pour renforcer l'immersion du prone
             player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, Integer.MAX_VALUE, 0, false, false));
+        } else {
+            // Comportement initial (pour les cas où prone n'est pas activé)
+            if (plugin.getConfig().getBoolean("knockout.movement_disabled", true)) {
+                player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, Integer.MAX_VALUE, 255, false, false));
+                player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, Integer.MAX_VALUE, 0, false, false));
+            }
         }
 
-        // Rendre le joueur KO plus visible pour les autres (effet de glow)
+        // Rendre le joueur KO plus visible pour les autres
         player.setGlowing(true);
-
         player.sendMessage(ChatColor.RED + ReanimateMC.lang.get("ko_set"));
     }
 
@@ -68,6 +83,9 @@ public class KOManager {
         player.removePotionEffect(PotionEffectType.BLINDNESS);
         // Désactiver l'effet de glow
         player.setGlowing(false);
+
+        // Forcer le joueur à ne plus avoir l'effet de glow
+
 
         player.sendMessage(ChatColor.GREEN + ReanimateMC.lang.get("revived"));
 
@@ -106,5 +124,28 @@ public class KOManager {
         }
         koPlayers.clear();
     }
-}
 
+    // Méthode pour basculer l'état de "crawl" d'un joueur KO
+    public void toggleCrawl(Player player) {
+        if (!isKO(player))
+            return;
+
+        KOData data = koPlayers.get(player.getUniqueId());
+        boolean currentState = data.isCrawling();
+        data.setCrawling(!currentState);
+
+        // Retirer l'effet de lenteur actuel
+        player.removePotionEffect(PotionEffectType.SLOW);
+
+        if (data.isCrawling()) {
+            // Mode crawl : appliquer un effet de SLOW de niveau configuré (laisser un minimum de déplacement)
+            int crawlLevel = plugin.getConfig().getInt("prone.crawl_slowness_level", 5);
+            player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, Integer.MAX_VALUE, crawlLevel, false, false));
+            player.sendMessage(ChatColor.GREEN + ReanimateMC.lang.get("crawl_enabled"));
+        } else {
+            // Retour à l'immobilisation complète (prone non-crawling)
+            player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, Integer.MAX_VALUE, 255, false, false));
+            player.sendMessage(ChatColor.GREEN + ReanimateMC.lang.get("crawl_disabled"));
+        }
+    }
+}
