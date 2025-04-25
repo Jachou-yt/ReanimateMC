@@ -114,7 +114,7 @@ public class ReanimateMCCommand implements CommandExecutor, TabCompleter {
             }*/
 
             target.setGlowing(false);
-            sender.sendMessage(ChatColor.GREEN + ReanimateMC.lang.get("glowing_effect_removed", "player", target.getName()));
+            sender.sendMessage(ChatColor.GREEN + ReanimateMC.lang.get("glowing_effect_removed"));
 
 
         } else {

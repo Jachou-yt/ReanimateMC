@@ -1,3 +1,4 @@
 # Project exclude paths
 /target/
 /server/
+/src/main/java/fr/jachou/reanimatemc/utils/RMCUtils.java

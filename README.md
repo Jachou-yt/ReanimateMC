@@ -1,68 +1,99 @@
 # ReanimateMC
 
-![Version](https://img.shields.io/badge/version-Alpha_1.1.0-red.svg)
-![Minecraft](https://img.shields.io/badge/Minecraft-1.20.1-blue.svg)
-![Spigot](https://img.shields.io/badge/Spigot-1.20.1-orange.svg)
+![Version](https://img.shields.io/badge/version-Release_1.0.05-green.svg)
+![Minecraft](https://img.shields.io/badge/Minecraft-1.21.5-blue.svg)
+![Spigot](https://img.shields.io/badge/Spigot-1.21.5-orange.svg)
 
-## Table of Contents
+# ReanimateMC
 
-- [Installation](#installation)
-- [Configuration](#configuration)
-- [Usage](#usage)
-- [Commands](#commands)
-- [Permissions](#permissions)
-- [Contribution](#contribution)
-- [Report a Bug](#report-a-bug)
-- [License](#license)
+![ReanimateMC Cover](https://i.postimg.cc/3RHh8WJy/reanimate-mc-cover.jpg)
 
-## Installation
+![Cover help](https://i.postimg.cc/WzLwfL8c/Chat-GPT-Image-12-avr-2025-18-34-14.png)
 
-1. Download the latest version JAR file from [here](link_to_your_plugin.jar).
-2. Place the JAR file in the `plugins` folder of your Minecraft server.
-3. Restart or reload your Minecraft server.
+### Overview
+ReanimateMC is a revolutionary plugin that transforms Minecraft’s conventional death system. Instead of a player dying instantly when their health reaches zero, the plugin introduces an intermediary state—KO (knockout). This innovative mechanic allows for dynamic role-play and strategic decision-making by giving players a chance to be revived by teammates or executed by adversaries. Perfect for Hardcore Survival, role-play, or tactical PVP servers, ReanimateMC injects a new level of depth into the gameplay experience.
 
-## Configuration
 
-Currently unavailable.
-## Usage
-
-To revive a player, simply right-click on them. The player will be revived after 5 seconds.
 ## Commands
 
-*Exemplary command:*
+<details>
+<summary>Spoiler</summary>
 
-- /reanimate
-    - Description: Allows reviving a player.
-    - Usage: `/reanimate <player>`
-    - Permission: `reanimatemc.reanimate`
-- /ko
-    - Description: Allows knocking out a player.
-    - Usage: `/ko <player>`
-    - Permission: `reanimatemc.ko`
-- /reanimatemc
-    - Description: Manage the plugin.
-    - Usage: `/reanimatemc <args>`
-    - Permission: `reanimatemc.reanimatemc`
+### /reanimatemc reload
 
-## Permissions
+-   **Permission:** `reanimatemc.admin`
 
-Currently unavailable.
+-   **Usage:** `/reanimatemc reload`
 
-## Contribution
+-   **Description:** Reloads the plugin’s configuration and language files.
 
-Contributions are welcome. To contribute, please follow these steps:
 
-1. Fork the project.
-2. Create a new branch.
-3. Make your changes.
-4. Create a pull request.
-5. Wait for your pull request to be accepted.
-6. Your contribution is added to the project!
+----------
 
-## Report a Bug
+### /reanimatemc revive <player>
 
-If you encounter issues with the plugin, please report them by creating an issue in the issues section of the repository.
+-   **Permission:** `reanimatemc.revive`
 
-## License
+-   **Usage:** `/reanimatemc revive <player>`
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more information.
+-   **Description:** Forcefully revives a player who is in the KO state.
+
+
+----------
+
+### /reanimatemc knockout <player>
+
+-   **Permission:** Typically requires admin privileges (suggested: `reanimatemc.admin`)
+
+-   **Usage:** `/reanimatemc knockout <player>`
+
+-   **Description:** Forces a player to enter the KO (knockout) state.
+
+
+----------
+
+### /reanimatemc status <player>
+
+-   **Permission:** No special permission required (accessible to all users)
+
+-   **Usage:** `/reanimatemc status <player>`
+
+-   **Description:** Displays the current state of the player (KO, revived, or normal).
+
+
+----------
+
+### /reanimatemc crawl
+
+-   **Permission:** No special permission required (command can only be executed by a player in the KO state)
+
+-   **Usage:** `/reanimatemc crawl`
+
+-   **Description:** Toggles the KO player's state between being fully immobilized (prone) and crawling slowly.
+
+----------
+
+### /reanimatemc removeGlowingEffect <player>
+
+-   **Permission:** Operator
+
+-   **Usage:** `/reanimatemc removeGlowingEffect <player>`
+
+-   **Description:** In order to force removing the glowing effect on a plyer
+
+
+</details>
+
+
+## Compatibility:
+Bukkit, Spigot, Magma, Sponge
+
+## Native Version :
+1.20.1
+
+## Author:
+Jachou
+
+# Statistics
+
+<img src="https://bstats.org/signatures/bukkit/ReanimateMC.svg" alt="BStats">

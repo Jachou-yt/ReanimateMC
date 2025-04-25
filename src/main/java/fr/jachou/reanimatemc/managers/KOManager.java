@@ -3,9 +3,11 @@ package fr.jachou.reanimatemc.managers;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import fr.jachou.reanimatemc.ReanimateMC;
 import fr.jachou.reanimatemc.data.KOData;
+import fr.jachou.reanimatemc.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -40,6 +42,21 @@ public class KOManager {
         }, durationSeconds * 20L);
         data.setTaskId(taskId);
         koPlayers.put(player.getUniqueId(), data);
+
+        // Envoi de l'Action Bar
+        AtomicInteger secondsLeft = new AtomicInteger((int) durationSeconds);
+
+        // Tâche répétitive pour le countdown
+        int barTaskId = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, () -> {
+            int sec = secondsLeft.getAndDecrement();
+            if (sec >= 0 && koPlayers.containsKey(player.getUniqueId())) {
+                Utils.sendActionBar(player,
+                        ReanimateMC.lang.get("actionbar_ko_countdown", "time", String.valueOf(sec))
+                );
+            }
+        }, 0L, 20L);
+
+        data.setBarTaskId(barTaskId);
 
         // Application de la posture prone avec une option de ramper
         if (plugin.getConfig().getBoolean("prone.enabled", false)) {
@@ -77,6 +94,8 @@ public class KOManager {
         KOData data = koPlayers.get(player.getUniqueId());
         plugin.getServer().getScheduler().cancelTask(data.getTaskId());
         koPlayers.remove(player.getUniqueId());
+
+        plugin.getServer().getScheduler().cancelTask(data.getBarTaskId());
 
         // Suppression des effets d'immobilisation et d'aveuglement
         player.removePotionEffect(PotionEffectType.SLOW);

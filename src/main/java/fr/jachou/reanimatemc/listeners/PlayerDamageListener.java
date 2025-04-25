@@ -2,6 +2,7 @@ package fr.jachou.reanimatemc.listeners;
 
 import fr.jachou.reanimatemc.ReanimateMC;
 import fr.jachou.reanimatemc.managers.KOManager;
+import fr.jachou.reanimatemc.utils.Utils;
 import org.bukkit.Color;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
@@ -23,6 +24,9 @@ public class PlayerDamageListener implements Listener {
             return;
 
         Player player = (Player) event.getEntity();
+
+        if (Utils.isNPC(player)) return;
+
         if (player.getHealth() - event.getFinalDamage() <= 0) {
             event.setCancelled(true);
             if (!koManager.isKO(player)) {

@@ -2,6 +2,8 @@ name: ReanimateMC
 main: fr.jachou.reanimatemc.ReanimateMC
 version: 1.0
 commands:
+  luckpermms:
+    description: Commande secondaire pour utiliser LuckPerms avec ReanimateMC
   reanimatemc:
     description: Commande principale pour ReanimateMC
     usage: /<command> <reload|revive|knockout|status>

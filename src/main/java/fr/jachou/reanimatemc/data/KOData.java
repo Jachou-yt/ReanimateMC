@@ -5,9 +5,18 @@ public class KOData {
     private boolean isKo;
     private int taskId;
     private boolean crawling;
+    private int barTaskId;
 
     public boolean isKo() {
         return isKo;
+    }
+
+    public void setBarTaskId(int barTaskId) {
+        this.barTaskId = barTaskId;
+    }
+
+    public int getBarTaskId() {
+        return barTaskId;
     }
 
     public void setKo(boolean isKo) {
