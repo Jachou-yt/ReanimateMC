@@ -1,1 +1,1 @@
-"C:\Program Files\Java\jdk-17\bin\java.exe" -jar spigot-1.20.2.jar nogui
+"C:\Users\conta\.jdks\ms-17.0.15\bin\java.exe" -jar spigot-1.20.2.jar nogui

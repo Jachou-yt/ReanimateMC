@@ -1,12 +1,11 @@
 name: ReanimateMC
 main: fr.jachou.reanimatemc.ReanimateMC
 version: 1.0
+api-version: 1.13
 commands:
-  luckpermms:
-    description: Commande secondaire pour utiliser LuckPerms avec ReanimateMC
   reanimatemc:
     description: Commande principale pour ReanimateMC
-    usage: /<command> <reload|revive|knockout|status>
+    usage: /<command> <reload|revive|knockout|status|crawl>
 permissions:
   reanimatemc.revive:
     description: Permet de réanimer un joueur
@@ -19,4 +18,7 @@ permissions:
     default: op
   reanimatemc.admin:
     description: Accès aux commandes d’administration
+    default: op
+  reanimatemc.loot:
+    description: Permet d’ouvrir l’inventaire d’un joueur KO
     default: op
