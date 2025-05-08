@@ -5,10 +5,14 @@ import fr.jachou.reanimatemc.managers.KOManager;
 import fr.jachou.reanimatemc.managers.LootManager;
 import fr.jachou.reanimatemc.utils.Utils;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.bukkit.inventory.ItemStack;
+
+import java.util.Objects;
 
 public class ReanimationListener implements Listener {
     private KOManager koManager;
@@ -48,13 +52,19 @@ public class ReanimationListener implements Listener {
             return;
         }
 
-        boolean requireSpecial = ReanimateMC.getInstance()
-                .getConfig().getBoolean("reanimation.require_special_item", true);
-        String requiredItem = ReanimateMC.getInstance()
-                .getConfig().getString("reanimation.required_item", "GOLDEN_APPLE");
-        if (requireSpecial
-                && !player.getInventory().getItemInMainHand()
-                .getType().toString().equalsIgnoreCase(requiredItem)) {
+        boolean requireSpecial = ReanimateMC.getInstance().getConfig().getBoolean("reanimation.require_special_item", true);
+        String requiredItem = ReanimateMC.getInstance().getConfig().getString("reanimation.required_item");
+
+        if (requireSpecial) {
+            assert requiredItem != null;
+            if (!Objects.requireNonNull(Material.getMaterial(requiredItem)).isItem()) {
+                player.sendMessage(ChatColor.RED
+                        + ReanimateMC.lang.get("special_item_not_set", "item", requiredItem));
+                return;
+            }
+        }
+
+        if (requireSpecial && !player.getInventory().getItemInMainHand().getType().toString().equalsIgnoreCase(requiredItem)) {
             player.sendMessage(ChatColor.RED
                     + ReanimateMC.lang.get("special_item_required", "item", requiredItem));
             return;
@@ -72,6 +82,12 @@ public class ReanimationListener implements Listener {
                                 + ReanimateMC.lang.get("revived_by", "player", player.getName()));
                         player.sendMessage(ChatColor.GREEN
                                 + ReanimateMC.lang.get("revived_confirmation", "player", target.getName()));
+                        if (player.getInventory().getItemInMainHand().getAmount() > 1) {
+                            player.getInventory().getItemInMainHand().setAmount(player.getInventory().getItemInMainHand().getAmount() - 1);
+                        } else {
+                            player.getInventory().setItemInMainHand(new ItemStack(Material.AIR));
+                        }
+
                     }
                 }, durationTicks);
     }
